@@ -2,7 +2,7 @@ import { Instagram, Phone } from "lucide-react";
 
 export function Header() {
   return (
-    <header className="flex items-center justify-between bg-black rounded-br-3xl rounded-bl-3xl px-10 py-5 mt-10 font-manrope m-20">
+    <header className="flex items-center justify-between fixed w-[1300px] rounded-3xl px-10 py-5 mt-5 font-manrope m-20 z-50 bg-black/40 backdrop-blur-lg">
       <div className="justify-center w-32 h-auto">
         <img src="logo.png" alt="logo" className="" />
       </div>

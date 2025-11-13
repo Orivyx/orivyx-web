@@ -1,10 +1,11 @@
 import { ChevronRight, ArrowRight } from "lucide-react";
+import CountUp from "react-countup";
 
 export function Home() {
   return (
-    <main className="mx-40">
-      <section className="">
-        <article className="grid grid-cols-2 grid-rows-2">
+    <section className="mx-40 pt-48">
+      <div className="">
+        <div className="grid grid-cols-2 grid-rows-2">
           <div className="font-bold font-onest text-6xl grid grid-rows-4 justify-end col-start-2 h-46">
             <h1 className="">Transformamos</h1>
             <h1 className="pl-28 text-pink">esforço</h1>
@@ -19,8 +20,10 @@ export function Home() {
               </p>
             </div>
           </div>
-          <div className="relative backdrop-blur-sm border border-pink grid grid-cols-2 grid-rows-2 row-start-1 items-start justify-start rounded-2xl w-52 h-52 pl-6 pt-6 pb-16 ml-28 mt-10">
-            <h1 className="font-manrope text-6xl font-bold col-span-2">90%</h1>
+          <div className="relative backdrop-blur-sm border border-pink grid grid-cols-2 grid-rows-2 row-start-1 items-start justify-start rounded-2xl w-52 h-52 pl-6 pt-6 pb-16 ml-24 mt-10">
+            <h1 className="font-manrope text-6xl font-bold col-span-2 tracking-tighter">
+              <CountUp end={90} duration={2.0} />%
+            </h1>
             <p className="font-manrope text-base font-extralight col-span-2">
               de ganho em eficiência
               <br />
@@ -39,8 +42,8 @@ export function Home() {
           </div>
           <div className="relative backdrop-blur-sm border border-pink-500 rounded-2xl w-52 h-52 p-6 col-start-2 justify-self-end mr-3 mt-16">
             <div className="w-full h-full flex flex-col items-end text-right">
-              <h1 className="font-manrope text-6xl font-bold text-white">
-                80%
+              <h1 className="font-manrope text-6xl font-bold text-white tracking-tighter">
+                <CountUp end={80} duration={2.0} />%
               </h1>
 
               <p className="font-manrope text-base font-extralight text-white leading-tight">
@@ -58,8 +61,8 @@ export function Home() {
               </button>
             </div>
           </div>
-          <div className="col-start-1 row-start-3">
-            <h1 className="text-6xl font-bold text-shadow-lg/20">
+          <div className="col-start-1 row-start-2 row-end-3 pt-24">
+            <h1 className="text-6xl/12 font-bold text-shadow-lg/20 tracking-tighter">
               Construa o futuro
               <br />
               com a <span className="text-pink">Orivyx</span>
@@ -71,8 +74,8 @@ export function Home() {
               </div>
             </button>
           </div>
-        </article>
-      </section>
-    </main>
+        </div>
+      </div>
+    </section>
   );
 }
