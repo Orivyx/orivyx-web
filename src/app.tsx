@@ -17,7 +17,7 @@ export function App() {
   return (
     <main className="text-white bg-[url(/bg.png)] w-screen bg-cover bg-top max-w-screen">
       <Header active={activeSection} />
-      <article className="">
+      <article>
         <Home />
         <About />
         <Services />
