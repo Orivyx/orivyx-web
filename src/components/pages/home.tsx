@@ -2,8 +2,15 @@ import { ChevronRight, ArrowRight } from "lucide-react";
 import CountUp from "react-countup";
 
 export function Home() {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="mx-40 pt-48">
+    <section id="home" className="mx-40 pt-48">
       <div className="">
         <div className="grid grid-cols-2 grid-rows-2">
           <div className="font-bold font-onest text-6xl grid grid-rows-4 justify-end col-start-2 h-46">
@@ -67,10 +74,13 @@ export function Home() {
               <br />
               com a <span className="text-pink">Orivyx</span>
             </h1>
-            <button className="w-64 flex bg-pink rounded-full py-7 px-12 items-center justify-center shadow-xl/20 mt-5">
-              <div className="flex flex-row items-center">
-                <p className="text-xl col-span-1">Explorar</p>
-                <ArrowRight className="col-start-2 justify-self-start" />
+            <button
+              onClick={() => scrollToSection("about")}
+              className="w-64 flex bg-pink rounded-full py-7 px-12 items-center justify-center shadow-xl/20 mt-5 group transition-all duration-300 hover:bg-pink/90"
+            >
+              <div className="flex flex-row items-center gap-2">
+                <p className="text-xl">Explorar</p>
+                <ArrowRight className="transform transition-all duration-300 group-hover:translate-x-2" />
               </div>
             </button>
           </div>
