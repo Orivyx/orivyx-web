@@ -1,6 +1,6 @@
 export function About() {
   return (
-    <section className="pt-36 flex flex-col items-center">
+    <section id="about" className="pt-36 flex flex-col items-center">
       <div className="grid grid-rows-2 items-center justify-center">
         <div className="flex items-center justify-centers max-h-16 justify-self-center pt-14">
           <img src="logo.png" alt="logo" className="scale-40" />
@@ -12,7 +12,7 @@ export function About() {
         </h1>
       </div>
       <div className="grid grid-cols-4 mx-40 gap-10 pt-10">
-        <div className="bg-white rounded-tr-[20px] rounded-tl-[100px] rounded-br-[20px] rounded-bl-[20px] text-right pt-8 pr-5 border border-pink shadow-lg/20">
+        <div className="transition-transform duration-300 hover:scale-105 bg-white rounded-tr-[20px] rounded-tl-[100px] rounded-br-[20px] rounded-bl-[20px] text-right pt-8 pr-5 border border-pink shadow-lg/20">
           <h1 className="text-pink font-manrope text-xl font-bold">
             Performance e Crescimento
           </h1>
@@ -21,7 +21,7 @@ export function About() {
             <br /> que geram resultados reais e mensuráveis.
           </p>
         </div>
-        <div className="bg-pink rounded-3xl text-center pt-8 border border-pink shadow-lg/20">
+        <div className="transition-transform duration-300 hover:scale-105 bg-pink rounded-3xl text-center pt-8 border border-pink shadow-lg/20">
           <h1 className="font-manrope text-xl font-bold">
             Automação
             <br />
@@ -31,7 +31,7 @@ export function About() {
             Reduza custos. Ganhe tempo. Multiplique resultados.
           </p>
         </div>
-        <div className="bg-white rounded-3xl text-center pt-8 border border-pink shadow-lg/20">
+        <div className="transition-transform duration-300 hover:scale-105 bg-white rounded-3xl text-center pt-8 border border-pink shadow-lg/20">
           <h1 className="text-pink font-manrope text-xl font-bold">
             Segurança e Confiabilidade
           </h1>
@@ -40,7 +40,7 @@ export function About() {
             garantindo total controle.
           </p>
         </div>
-        <div className="bg-white rounded-tl-[20px] rounded-tr-[100px] rounded-br-[20px] rounded-bl-[20px] h-52 pt-8 pl-5 border border-pink shadow-lg/20">
+        <div className="transition-transform duration-300 hover:scale-105 bg-white rounded-tl-[20px] rounded-tr-[100px] rounded-br-[20px] rounded-bl-[20px] h-52 pt-8 pl-5 border border-pink shadow-lg/20">
           <h1 className="text-pink font-manrope text-xl font-bold">
             Suporte e<br />
             Evolução
@@ -57,7 +57,7 @@ export function About() {
           <span className="text-pink">automação</span>
         </h1>
         <div className="grid grid-cols-2 gap-5">
-          <div className="bg-white rounded-3xl text-left pt-8 px-5 border border-pink shadow-lg/20 w-[276px] h-80">
+          <div className="transition-transform duration-300 hover:scale-105 bg-white rounded-3xl text-left pt-8 px-5 border border-pink shadow-lg/20 w-[276px] h-80">
             <h1 className="text-pink font-manrope text-3xl font-bold">
               Parceria que impulsiona
             </h1>
@@ -66,7 +66,7 @@ export function About() {
               resolvem o que realmente importa.
             </p>
           </div>
-          <div className="bg-white rounded-3xl text-right pt-8 px-5 border border-pink shadow-lg/20 w-[276px] h-80 col-start-2">
+          <div className="transition-transform duration-300 hover:scale-105 bg-white rounded-3xl text-right pt-8 px-5 border border-pink shadow-lg/20 w-[276px] h-80 col-start-2">
             <h1 className="text-pink font-manrope text-3xl font-bold">
               Suporte que
               <br />
