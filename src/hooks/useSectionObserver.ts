@@ -11,8 +11,6 @@ export function useSectionObserver(sectionIds: string[]) {
         entries.forEach((entry) => {
           visibilityMap[entry.target.id] = entry.intersectionRatio;
         });
-
-        // escolhe a seção com MAIOR visibilidade na tela
         const mostVisibleSection = Object.keys(visibilityMap).reduce((a, b) =>
           visibilityMap[a] > visibilityMap[b] ? a : b
         );

@@ -1,9 +1,28 @@
 @import "tailwindcss";
+
 @theme {
   --font-onest: "Onest";
   --font-manrope: "Manrope";
   --color-pink: #e61672;
 }
+
 * {
   min-width: 0;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+  }
+}
+
+@layer utilities {
+  @media (min-width: 1920px) {
+    .bg-1920 {
+      background-size: cover;
+    }
+  }
 }

@@ -10,13 +10,27 @@ export function Home() {
   };
 
   return (
-    <section id="home" className="mx-40 pt-48">
-      <div className="">
-        <div className="grid grid-cols-2 grid-rows-2">
-          <div className="font-bold font-onest text-6xl grid grid-rows-4 justify-end col-start-2 h-46">
+    <section
+      id="home"
+      className="
+        pt-48
+        md:pt-32
+        max-w-7xl 
+        w-full 
+        mx-auto 
+        justify-self-center 
+        overflow-x-hidden 
+        px-4
+      "
+    >
+      <div className="w-full max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-2 grid-rows-2 w-full min-w-0">
+          {/* TEXTO PRINCIPAL */}
+          <div className="min-w-0 font-bold font-onest text-6xl grid grid-rows-4 justify-end col-start-2 h-46">
             <h1 className="">Transformamos</h1>
-            <h1 className="pl-28 text-pink">esforço</h1>
+            <h1 className="pl-24 text-pink">esforço</h1>
             <h1 className="justify-self-end">em lucro</h1>
+
             <div className="grid-rows-4">
               <p className="font-manrope font-extralight text-base justify-self-end pr-4 mt-1.5">
                 Automatizamos processos,
@@ -27,10 +41,32 @@ export function Home() {
               </p>
             </div>
           </div>
-          <div className="relative backdrop-blur-sm border border-pink grid grid-cols-2 grid-rows-2 row-start-1 items-start justify-start rounded-2xl w-52 h-52 pl-6 pt-6 pb-16 ml-24 mt-10">
+
+          {/* CARD 1 */}
+          <div
+            className="
+              min-w-0
+              relative 
+              backdrop-blur-sm 
+              border border-pink 
+              grid grid-cols-2 grid-rows-2 
+              row-start-1 
+              items-start 
+              justify-start 
+              rounded-2xl 
+              w-52 
+              h-52 
+              pl-6 
+              pt-6 
+              pb-16 
+              ml-20 
+              mt-10
+            "
+          >
             <h1 className="font-manrope text-6xl font-bold col-span-2 tracking-tighter">
               <CountUp end={90} duration={2.0} />%
             </h1>
+
             <p className="font-manrope text-base font-extralight col-span-2">
               de ganho em eficiência
               <br />
@@ -38,6 +74,7 @@ export function Home() {
               <br />
               inteligente.
             </p>
+
             <div className="absolute bottom-3 right-4">
               <button className="bg-white rounded-full w-16 h-16 flex items-center justify-center hover:text-zinc-400 focus:text-zinc-400">
                 <ChevronRight
@@ -47,7 +84,24 @@ export function Home() {
               </button>
             </div>
           </div>
-          <div className="relative backdrop-blur-sm border border-pink-500 rounded-2xl w-52 h-52 p-6 col-start-2 justify-self-end mr-3 mt-16">
+
+          {/* CARD 2 */}
+          <div
+            className="
+              min-w-0
+              relative 
+              backdrop-blur-sm 
+              border border-pink-500 
+              rounded-2xl 
+              w-52 
+              h-52 
+              p-6 
+              col-start-2 
+              justify-self-end 
+              mr-3 
+              mt-16
+            "
+          >
             <div className="w-full h-full flex flex-col items-end text-right">
               <h1 className="font-manrope text-6xl font-bold text-white tracking-tighter">
                 <CountUp end={80} duration={2.0} />%
@@ -59,6 +113,7 @@ export function Home() {
                 operacionais.
               </p>
             </div>
+
             <div className="absolute bottom-4 left-4">
               <button className="bg-white rounded-full w-16 h-16 flex items-center justify-center hover:text-zinc-400 focus:text-zinc-400">
                 <ChevronRight
@@ -68,15 +123,32 @@ export function Home() {
               </button>
             </div>
           </div>
-          <div className="col-start-1 row-start-2 row-end-3 pt-24">
+
+          {/* TEXTO + BOTÃO */}
+          <div className="min-w-0 col-start-1 row-start-2 row-end-3 pt-24">
             <h1 className="text-6xl/12 font-bold text-shadow-lg/20 tracking-tighter">
               Construa o futuro
               <br />
               com a <span className="text-pink">Orivyx</span>
             </h1>
+
             <button
               onClick={() => scrollToSection("about")}
-              className="w-64 flex bg-pink rounded-full py-7 px-12 items-center justify-center shadow-xl/20 mt-5 group transition-all duration-300 hover:bg-pink/90"
+              className="
+                w-64 
+                flex 
+                bg-pink 
+                rounded-full 
+                py-7 px-12 
+                items-center 
+                justify-center 
+                shadow-xl/20 
+                mt-5 
+                group 
+                transition-all 
+                duration-300 
+                hover:bg-pink/90
+              "
             >
               <div className="flex flex-row items-center gap-2">
                 <p className="text-xl">Explorar</p>

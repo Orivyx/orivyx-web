@@ -7,9 +7,13 @@ export function Footer() {
   };
 
   return (
-    <footer id="footer" className="pt-72">
-      <div className="bg-black/50 px-[533px] grid grid-cols-2 h-[177px] items-center">
-        <div className="font-extralight items-start flex flex-col">
+    <footer
+      id="footer"
+      className="pt-36 w-full flex justify-center overflow-x-hidden"
+    >
+      <div className="bg-black/50 w-full px-6 md:px-16 grid grid-cols-1 md:grid-cols-2 h-[177px] items-center gap-10 md:gap-0 rounded-t-2xl">
+        {/* LINKS */}
+        <div className="font-extralight flex gap-1.5 text-left flex-col">
           <button
             onClick={() => scrollToSection("home")}
             className="hover:text-zinc-300"
@@ -38,7 +42,9 @@ export function Footer() {
             contato
           </button>
         </div>
-        <div className="flex flex-col items-center gap-2">
+
+        {/* BOTÃO + EMAILS */}
+        <div className="flex flex-col items-center gap-3">
           <a
             href="https://wa.me/5511920926916"
             className="flex flex-row justify-center items-center text-white gap-4"
@@ -51,7 +57,7 @@ export function Footer() {
             </div>
           </a>
 
-          <div className="font-extralight">
+          <div className="font-extralight text-center">
             <p>lsanchez@orivyx.com</p>
             <p>gmarques@orivyx.com</p>
           </div>
