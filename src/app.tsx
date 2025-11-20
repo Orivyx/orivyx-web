@@ -15,7 +15,21 @@ export function App() {
   ]);
 
   return (
-    <main className="text-white bg-[url(/bg.png)] w-screen bg-cover bg-top max-w-screen">
+    <main
+      className="
+        text-white 
+        bg-no-repeat bg-top overflow-x-hidden
+
+        bg-[url('/bg.png')]        /* default (mobile e telas menores) */
+        bg-contain                 
+
+        md:bg-[url('/bg.png')]   /* usa o bg grande */
+        md:bg-cover              /* mas não estoura */
+
+        2xl:bg-[url('/test.png')]
+        bg-1920                    /* só em 1920px pra cima vira cover */
+      "
+    >
       <Header active={activeSection} />
       <article>
         <Home />

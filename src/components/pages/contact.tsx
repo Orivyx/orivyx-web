@@ -1,7 +1,10 @@
 export function Contact() {
   return (
-    <section id="contact" className="mx-[400px] pt-34">
-      <div className="flex flex-col items-center bg-black/40 justify-center text-center rounded-2xl py-10 backdrop-blur-lg border border-white h-[190px]">
+    <section
+      id="contact"
+      className="max-w-3xl w-full mx-auto justify-self-center pt-34 px-4 overflow-x-hidden"
+    >
+      <div className="flex flex-col items-center bg-black/40 justify-center text-center rounded-2xl py-10 backdrop-blur-lg border border-white h-[190px] w-full">
         <div className="flex items-center gap-3">
           <h1 className="font-manrope font-bold text-4xl text-pink">
             Entre em contato conosco
