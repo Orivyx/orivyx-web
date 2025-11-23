@@ -35,12 +35,12 @@ export function Header({ active }: HeaderProps) {
         "
       >
         {/* LOGO */}
-        <div className="flex-1 flex justify-start">
+        <div className="flex flex-1 justify-start">
           <img src="logo.png" className="w-20 sm:w-28 h-auto" alt="logo" />
         </div>
 
         {/* NAV DESKTOP */}
-        <nav className="hidden sm:flex justify-center gap-20">
+        <nav className="hidden sm:flex flex-1 justify-center gap-20">
           {links.map((l) => {
             const isActive = active === l.id;
             return (
@@ -71,7 +71,7 @@ export function Header({ active }: HeaderProps) {
         </nav>
 
         {/* AÇÕES DESKTOP */}
-        <div className="hidden sm:flex items-center gap-3 text-white">
+        <div className="hidden sm:flex flex-1 justify-end items-center gap-3 text-white">
           <a
             href="https://instagram.com/orivyxtech"
             className="text-white hover:text-zinc-400"
