@@ -36,7 +36,7 @@ export function Header({ active }: HeaderProps) {
       >
         {/* LOGO */}
         <div className="flex-1 flex justify-start">
-          <img src="logo.png" className="w-28 h-auto" alt="logo" />
+          <img src="logo.png" className="w-20 sm:w-28 h-auto" alt="logo" />
         </div>
 
         {/* NAV DESKTOP */}

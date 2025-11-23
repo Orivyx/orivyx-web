@@ -22,7 +22,7 @@ export function AboutMobile() {
       {/* SWIPER — SLIDES */}
       <Swiper
         slidesPerView={1.4}
-        spaceBetween={0}
+        spaceBetween={10}
         centeredSlides={true}
         loop={true}
         className="mySwiper w-full"
@@ -30,9 +30,7 @@ export function AboutMobile() {
         {/* CARD 1 — PERFORMANCE ESTRATÉGICA */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-pink/5 border border-pink backdrop-blur-lg text-white pt-8 px-4 w-64 h-[250px]">
-            <h1 className="text-2xl font-bold tracking-tight">
-              Performance Estratégica
-            </h1>
+            <h1 className="text-2xl tracking-tight">Performance Estratégica</h1>
             <p className="text-base font-manrope font-extralight mt-2">
               Inteligência aplicada para elevar resultados com previsibilidade,
               <br />
@@ -44,9 +42,7 @@ export function AboutMobile() {
         {/* CARD 2 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-white/5 border border-white backdrop-blur-lg text-white pt-8 px-4 w-64 h-[250px]">
-            <h1 className="text-2xl font-bold tracking-tight">
-              Automação Inteligente
-            </h1>
+            <h1 className="text-2xl tracking-tight">Automação Inteligente</h1>
             <p className="text-base font-manrope font-extralight mt-2">
               Processos que operam sozinhos, sem erros e com escala
               <br />
@@ -58,9 +54,7 @@ export function AboutMobile() {
         {/* CARD 3 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-pink/5 border border-pink backdrop-blur-lg text-white pt-8 px-4 w-64 h-[250px]">
-            <h1 className="text-2xl font-bold tracking-tight">
-              Segurança Corporativa
-            </h1>
+            <h1 className="text-2xl tracking-tight">Segurança Corporativa</h1>
             <p className="text-base font-manrope font-extralight mt-2">
               Infraestrutura robusta e protocolos avançados
               <br />
@@ -72,9 +66,7 @@ export function AboutMobile() {
         {/* CARD 4 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-white/5 border border-white backdrop-blur-lg text-white pt-8 px-4 w-64 h-[250px]">
-            <h1 className="text-2xl font-bold tracking-tight">
-              Suporte Consultivo
-            </h1>
+            <h1 className="text-2xl tracking-tight">Suporte Consultivo</h1>
             <p className="text-base font-manrope font-extralight mt-2">
               Apoio estratégico contínuo para manter sua operação
               <br />
@@ -86,9 +78,7 @@ export function AboutMobile() {
         {/* CARD 5 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-white border border-pink backdrop-blur-lg text-pink pt-8 px-4 w-64 h-[250px]">
-            <h1 className="text-2xl font-bold tracking-tight">
-              Eficiência Operacional
-            </h1>
+            <h1 className="text-2xl tracking-tight">Eficiência Operacional</h1>
             <p className="text-base font-manrope font-extralight mt-2">
               Elimine gargalos e transforme rotinas complexas
               <br />
@@ -100,9 +90,7 @@ export function AboutMobile() {
         {/* CARD 6 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-pink/5 border border-pink backdrop-blur-lg text-white pt-8 px-4 w-64 h-[250px]">
-            <h1 className="text-2xl font-bold tracking-tight">
-              Escalabilidade Real
-            </h1>
+            <h1 className="text-2xl tracking-tight">Escalabilidade Real</h1>
             <p className="text-base font-manrope font-extralight mt-2">
               Soluções que crescem junto com seu negócio,
               <br />
@@ -114,7 +102,7 @@ export function AboutMobile() {
         {/* CARD 7 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-white/5 border border-white backdrop-blur-lg text-white pt-8 px-4 w-64 h-[250px]">
-            <h1 className="text-2xl font-bold tracking-tight">
+            <h1 className="text-2xl tracking-tight">
               Inovação Orientada a Resultados
             </h1>
             <p className="text-base font-manrope font-extralight mt-2">
@@ -127,7 +115,7 @@ export function AboutMobile() {
         {/* CARD 8 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-white border border-pink backdrop-blur-lg text-pink pt-8 px-4 w-64 h-[250px]">
-            <h1 className="text-2xl font-bold tracking-tight">
+            <h1 className="text-2xl tracking-tight">
               Confiabilidade Operacional
             </h1>
             <p className="text-base font-manrope font-extralight mt-2">
