@@ -4,6 +4,7 @@
   --font-onest: "Onest";
   --font-manrope: "Manrope";
   --color-pink: #e61672;
+  --text-tiny: 0.625rem;
 }
 
 * {

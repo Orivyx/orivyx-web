@@ -1,8 +1,8 @@
-export function Services() {
+export function ServicesMobile() {
   return (
     <section
       id="services"
-      className="max-w-7xl w-full mx-auto justify-self-center pt-28 flex flex-col overflow-x-hidden"
+      className="max-w-7xl w-full mx-auto justify-self-center pt-28 flex-col overflow-x-hidden hidden sm:flex"
     >
       <div>
         <h1 className="font-bold text-6xl/12 tracking-tighter text-shadow-lg/20 justify-self-end">

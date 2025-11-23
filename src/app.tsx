@@ -1,10 +1,15 @@
 import { Header } from "./components/header";
-import { Home } from "./components/pages/home";
-import { About } from "./components/pages/about";
-import { Services } from "./components/pages/services";
 import { Contact } from "./components/pages/contact";
 import { Footer } from "./components/footer";
 import { useSectionObserver } from "./hooks/useSectionObserver";
+
+import { useIsMobile } from "./hooks/useIsMobile";
+import { HomeDesktop } from "./components/pages/home/homeDesktop";
+import { HomeMobile } from "./components/pages/home/homeMobile";
+import { AboutDesktop } from "./components/pages/about/aboutDesktop";
+import { AboutMobile } from "./components/pages/about/aboutMobile";
+import { ServicesDesktop } from "./components/pages/services/servicesDesktop";
+import { ServicesMobile } from "./components/pages/services/servicesMobile";
 
 export function App() {
   const activeSection = useSectionObserver([
@@ -14,14 +19,16 @@ export function App() {
     "footer",
   ]);
 
+  const isMobile = useIsMobile();
+
   return (
     <main
       className="
         text-white 
         bg-no-repeat bg-top overflow-x-hidden
 
-        bg-[url('/bg.png')]        /* default (mobile e telas menores) */
-        bg-contain                 
+        bg-[url('/bg-mobile.png')]        /* default (mobile e telas menores) */
+        bg-cover                 
 
         md:bg-[url('/bg.png')]   /* usa o bg grande */
         md:bg-cover              /* mas não estoura */
@@ -32,9 +39,9 @@ export function App() {
     >
       <Header active={activeSection} />
       <article>
-        <Home />
-        <About />
-        <Services />
+        {isMobile ? <HomeMobile /> : <HomeDesktop />}
+        {isMobile ? <AboutMobile /> : <AboutDesktop />}
+        {isMobile ? <ServicesMobile /> : <ServicesDesktop />}
         <Contact />
         <Footer />
       </article>

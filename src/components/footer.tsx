@@ -9,7 +9,7 @@ export function Footer() {
   return (
     <footer
       id="footer"
-      className="pt-36 w-full flex justify-center overflow-x-hidden"
+      className="pt-36 w-full justify-center overflow-x-hidden hidden sm:flex"
     >
       <div className="bg-black/50 w-full px-6 md:px-16 grid grid-cols-1 md:grid-cols-2 h-[177px] items-center gap-10 md:gap-0 rounded-t-2xl">
         {/* LINKS */}
