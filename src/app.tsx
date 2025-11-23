@@ -1,3 +1,5 @@
+import { SpeedInsights } from "@vercel/speed-insights/react";
+
 import { Header } from "./components/header";
 import { Contact } from "./components/pages/contact";
 import { Footer } from "./components/footer";
@@ -44,6 +46,7 @@ export function App() {
         {isMobile ? <ServicesMobile /> : <ServicesDesktop />}
         <Contact />
         <Footer />
+        <SpeedInsights />
       </article>
     </main>
   );
