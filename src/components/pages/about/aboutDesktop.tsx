@@ -1,4 +1,4 @@
-export function About() {
+export function AboutDesktop() {
   return (
     <section
       id="about"

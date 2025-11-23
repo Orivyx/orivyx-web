@@ -1,12 +1,10 @@
 import { ChevronRight, ArrowRight } from "lucide-react";
 import CountUp from "react-countup";
 
-export function Home() {
+export function HomeDesktop() {
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    const el = document.getElementById(id);
+    el?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -14,7 +12,6 @@ export function Home() {
       id="home"
       className="
         pt-48
-        md:pt-32
         max-w-7xl 
         w-full 
         mx-auto 
@@ -27,19 +24,17 @@ export function Home() {
         <div className="grid grid-cols-2 grid-rows-2 w-full min-w-0">
           {/* TEXTO PRINCIPAL */}
           <div className="min-w-0 font-bold font-onest text-6xl grid grid-rows-4 justify-end col-start-2 h-46">
-            <h1 className="">Transformamos</h1>
+            <h1>Transformamos</h1>
             <h1 className="pl-24 text-pink">esforço</h1>
             <h1 className="justify-self-end">em lucro</h1>
 
-            <div className="grid-rows-4">
-              <p className="font-manrope font-extralight text-base justify-self-end pr-4 mt-1.5">
-                Automatizamos processos,
-                <br />
-                eliminamos tarefas repetitivas e
-                <br />
-                entregamos eficiência máxima.
-              </p>
-            </div>
+            <p className="font-manrope font-extralight text-base justify-self-end pr-4 mt-1.5">
+              Automatizamos processos,
+              <br />
+              eliminamos tarefas repetitivas e
+              <br />
+              entregamos eficiência máxima.
+            </p>
           </div>
 
           {/* CARD 1 */}

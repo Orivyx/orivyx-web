@@ -2,7 +2,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="max-w-3xl w-full mx-auto justify-self-center pt-34 px-4 overflow-x-hidden"
+      className="max-w-3xl w-full mx-auto justify-self-center pt-34 px-4 overflow-x-hidden hidden sm:flex"
     >
       <div className="flex flex-col items-center bg-black/40 justify-center text-center rounded-2xl py-10 backdrop-blur-lg border border-white h-[190px] w-full">
         <div className="flex items-center gap-3">
@@ -11,7 +11,7 @@ export function Contact() {
           </h1>
         </div>
         <p className="font-manrope text-3xl font-extralight mt-2">
-          Seja bem-vindo a mundo
+          Seja bem-vindo ao mundo
         </p>
         <img src="/logo.png" alt="Logo" className="h-14 object-contain" />
       </div>

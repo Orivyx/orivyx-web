@@ -1,4 +1,4 @@
-export function Services() {
+export function ServicesDesktop() {
   return (
     <section
       id="services"
