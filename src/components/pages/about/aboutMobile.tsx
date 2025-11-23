@@ -1,4 +1,6 @@
 import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -17,7 +19,7 @@ export function AboutMobile() {
         </h1>
       </div>
 
-      {/* SWIPER — 4 CARDS */}
+      {/* SWIPER — SLIDES */}
       <Swiper
         slidesPerView={1.4}
         spaceBetween={0}
@@ -39,7 +41,7 @@ export function AboutMobile() {
           </div>
         </SwiperSlide>
 
-        {/* CARD 2 — AUTOMAÇÃO INTELIGENTE */}
+        {/* CARD 2 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-white/5 border border-white backdrop-blur-lg text-white pt-8 px-4 w-64 h-[250px]">
             <h1 className="text-2xl font-bold tracking-tight">
@@ -53,7 +55,7 @@ export function AboutMobile() {
           </div>
         </SwiperSlide>
 
-        {/* CARD 3 — SEGURANÇA CORPORATIVA */}
+        {/* CARD 3 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-pink/5 border border-pink backdrop-blur-lg text-white pt-8 px-4 w-64 h-[250px]">
             <h1 className="text-2xl font-bold tracking-tight">
@@ -67,7 +69,7 @@ export function AboutMobile() {
           </div>
         </SwiperSlide>
 
-        {/* CARD 4 — SUPORTE CONSULTIVO */}
+        {/* CARD 4 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-white/5 border border-white backdrop-blur-lg text-white pt-8 px-4 w-64 h-[250px]">
             <h1 className="text-2xl font-bold tracking-tight">
@@ -81,7 +83,7 @@ export function AboutMobile() {
           </div>
         </SwiperSlide>
 
-        {/* CARD 5 — EFICIÊNCIA OPERACIONAL */}
+        {/* CARD 5 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-white border border-pink backdrop-blur-lg text-pink pt-8 px-4 w-64 h-[250px]">
             <h1 className="text-2xl font-bold tracking-tight">
@@ -95,7 +97,7 @@ export function AboutMobile() {
           </div>
         </SwiperSlide>
 
-        {/* CARD 6 — ESCALABILIDADE REAL */}
+        {/* CARD 6 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-pink/5 border border-pink backdrop-blur-lg text-white pt-8 px-4 w-64 h-[250px]">
             <h1 className="text-2xl font-bold tracking-tight">
@@ -109,7 +111,7 @@ export function AboutMobile() {
           </div>
         </SwiperSlide>
 
-        {/* CARD 7 — INOVAÇÃO ORIENTADA A RESULTADOS */}
+        {/* CARD 7 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-white/5 border border-white backdrop-blur-lg text-white pt-8 px-4 w-64 h-[250px]">
             <h1 className="text-2xl font-bold tracking-tight">
@@ -122,7 +124,7 @@ export function AboutMobile() {
           </div>
         </SwiperSlide>
 
-        {/* CARD 8 — CONFIABILIDADE OPERACIONAL */}
+        {/* CARD 8 */}
         <SwiperSlide>
           <div className="transition-transform duration-300 hover:scale-105 rounded-2xl bg-white border border-pink backdrop-blur-lg text-pink pt-8 px-4 w-64 h-[250px]">
             <h1 className="text-2xl font-bold tracking-tight">
