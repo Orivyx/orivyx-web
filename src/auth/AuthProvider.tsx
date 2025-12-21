@@ -7,7 +7,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const onRedirectCallback = (appState?: AppState) => {
     // Redireciona para a página que o usuário tentou acessar
-    navigate(appState?.returnTo || window.location.pathname);
+    // Se não tiver returnTo, vai para /admin por padrão (não para /)
+    const returnTo = appState?.returnTo || "/admin";
+    navigate(returnTo, { replace: true });
   };
 
   return (
