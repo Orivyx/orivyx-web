@@ -3,5 +3,11 @@
     "env": {
       "NODE_VERSION": "20"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/api/monitor/:path*",
+      "destination": "https://api.orivyx.com/monitor/:path*"
+    }
+  ]
 }
