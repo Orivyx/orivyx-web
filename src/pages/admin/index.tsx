@@ -248,9 +248,19 @@ const miniStyles = {
   pink: "bg-pink/5 border border-pink text-white",
   white: "bg-white border border-pink text-pink",
   neutral: "bg-white/5 border border-white/20 text-white",
+} as const;
+
+type MiniCardVariant = keyof typeof miniStyles;
+
+type MiniCardProps = {
+  title: string;
+  value: string;
+  accent: string;
+  chartData: { name: number; value: number }[];
+  variant: MiniCardVariant;
 };
 
-function MiniCard({ title, value, accent, chartData, variant }: any) {
+function MiniCard({ title, value, accent, chartData, variant }: MiniCardProps) {
   return (
     <Card
       className={`${miniStyles[variant]} rounded-2xl backdrop-blur-lg transition-transform duration-300 hover:scale-105`}
