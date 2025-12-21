@@ -8,6 +8,10 @@
     {
       "source": "/api/monitor/:path*",
       "destination": "https://api.orivyx.com/monitor/:path*"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
     }
   ]
 }
