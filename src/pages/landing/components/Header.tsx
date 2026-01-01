@@ -1,5 +1,6 @@
 import { Instagram, Phone, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type HeaderProps = {
   active: string;
@@ -7,6 +8,12 @@ type HeaderProps = {
 
 export function Header({ active }: HeaderProps) {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const goToForms = () => {
+    setOpen(false);
+    navigate("/forms");
+  };
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -79,13 +86,13 @@ export function Header({ active }: HeaderProps) {
             <Instagram className="w-7 h-auto" />
           </a>
 
-          <a
-            href="https://wa.me/5511920926916"
+          <button
+            onClick={goToForms}
             className="flex items-center bg-white text-pink text-base px-5 py-3 rounded-3xl font-bold gap-1.5 hover:bg-zinc-300 cursor-pointer"
           >
             <span>Contato</span>
             <Phone className="w-5 h-auto" />
-          </a>
+          </button>
         </div>
 
         {/* MOBILE: Instagram + Menu */}
@@ -133,8 +140,8 @@ export function Header({ active }: HeaderProps) {
           ))}
 
           {/* BOTÃO CONTATO CENTRALIZADO */}
-          <a
-            href="https://wa.me/5511920926916"
+          <button
+            onClick={goToForms}
             className="
               flex justify-center items-center
               bg-white text-pink text-base
@@ -146,7 +153,7 @@ export function Header({ active }: HeaderProps) {
           >
             <span>Contato</span>
             <Phone className="w-6 h-auto" />
-          </a>
+          </button>
         </div>
       </div>
     </>
