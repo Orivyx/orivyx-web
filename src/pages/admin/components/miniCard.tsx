@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
-import { MiniSparkline } from "./MiniSparkline";
+import { MiniSparkline } from "./miniSparkline";
 
 const miniStyles = {
   pink: "bg-pink/5 border border-pink text-white",
@@ -26,7 +26,7 @@ export function MiniCard({
 }: MiniCardProps) {
   return (
     <Card
-      className={`${miniStyles[variant]} rounded-2xl backdrop-blur-lg transition-transform duration-300 hover:scale-105`}
+      className={\`\${miniStyles[variant]} rounded-2xl backdrop-blur-lg transition-transform duration-300 hover:scale-105\`}
     >
       <CardHeader className="pb-1">
         <CardTitle className="text-base font-onest tracking-tight">
