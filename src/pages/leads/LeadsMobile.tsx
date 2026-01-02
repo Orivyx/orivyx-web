@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { ArrowRight, Send, Sparkles } from "lucide-react";
+import { ArrowRight, Send, CheckCircle, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-const WHATSAPP_NUMBER = "5511920926916";
+import emailjs from "@emailjs/browser";
 
 type FormData = {
   nome: string;
@@ -15,9 +14,15 @@ type FormData = {
 
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
+type Lead = FormData & {
+  id: string;
+  createdAt: string;
+};
+
 export function LeadsMobile() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     nome: "",
     email: "",
@@ -56,18 +61,24 @@ export function LeadsMobile() {
   const formatPhone = (value: string) => {
     const numbers = value.replace(/\D/g, "");
     if (numbers.length <= 2) return numbers;
-    if (numbers.length <= 7) return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
+    if (numbers.length <= 7)
+      return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
     if (numbers.length <= 11) {
-      return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7)}`;
+      return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(
+        7
+      )}`;
     }
-    return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
+    return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(
+      7,
+      11
+    )}`;
   };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    
+
     if (name === "telefone") {
       setFormData((prev) => ({ ...prev, [name]: formatPhone(value) }));
     } else {
@@ -79,25 +90,40 @@ export function LeadsMobile() {
     }
   };
 
-  const buildWhatsAppMessage = (): string => {
-    const lines = [
-      `*Novo Lead - Orivyx*`,
-      ``,
-      `*Nome:* ${formData.nome}`,
-      `*Email:* ${formData.email}`,
-      `*Telefone:* ${formData.telefone}`,
-      `*Empresa:* ${formData.empresa}`,
-    ];
+  const saveLead = (data: FormData): void => {
+    const lead: Lead = {
+      ...data,
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+    };
 
-    if (formData.cargo) {
-      lines.push(`*Cargo:* ${formData.cargo}`);
+    const existingLeads = localStorage.getItem("orivyx_leads");
+    const leads: Lead[] = existingLeads ? JSON.parse(existingLeads) : [];
+    leads.push(lead);
+    localStorage.setItem("orivyx_leads", JSON.stringify(leads));
+  };
+
+  const sendEmail = async (data: FormData): Promise<void> => {
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      throw new Error("EmailJS não configurado");
     }
 
-    if (formData.mensagem) {
-      lines.push(``, `*Mensagem:*`, formData.mensagem);
-    }
+    const templateParams = {
+      nome: data.nome,
+      email: data.email,
+      telefone: data.telefone,
+      telefone_limpo: data.telefone.replace(/\D/g, ""),
+      empresa: data.empresa,
+      cargo: data.cargo || "Não informado",
+      mensagem: data.mensagem || "Sem mensagem",
+      data: new Date().toLocaleString("pt-BR"),
+    };
 
-    return encodeURIComponent(lines.join("\n"));
+    await emailjs.send(serviceId, templateId, templateParams, publicKey);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -107,18 +133,63 @@ export function LeadsMobile() {
 
     setIsSubmitting(true);
 
-    // Pequeno delay para feedback visual
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    try {
+      // Envia email e salva no localStorage
+      await Promise.all([sendEmail(formData), saveLead(formData)]);
 
-    // Monta a URL do WhatsApp
-    const message = buildWhatsAppMessage();
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
-
-    // Abre o WhatsApp em nova aba
-    window.open(whatsappUrl, "_blank");
-
-    setIsSubmitting(false);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error("Erro ao enviar:", error);
+      // Mesmo com erro no email, salva localmente
+      saveLead(formData);
+      setIsSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  if (isSubmitted) {
+    return (
+      <main
+        className="
+          min-h-screen
+          text-white 
+          bg-no-repeat bg-cover bg-center
+          bg-[url('/bg-mobile.png')]
+          flex items-center justify-center
+          px-4 py-12
+        "
+      >
+        <div className="w-full max-w-md">
+          <div className="bg-black/50 backdrop-blur-xl border border-white/20 rounded-3xl p-8 text-center">
+            <div className="w-20 h-20 bg-pink/20 rounded-full flex items-center justify-center mx-auto mb-5">
+              <CheckCircle className="w-10 h-10 text-pink" />
+            </div>
+            <h1 className="font-onest text-2xl font-bold mb-3">
+              Mensagem recebida!
+            </h1>
+            <p className="font-manrope text-base text-white/70 mb-6">
+              Obrigado pelo seu interesse! Nossa equipe entrará em contato em
+              breve.
+            </p>
+            <button
+              onClick={() => navigate("/")}
+              className="
+                bg-pink hover:bg-pink/90
+                rounded-full py-3 px-6
+                font-onest font-semibold text-base
+                flex items-center gap-2 mx-auto
+                transition-all duration-300
+              "
+            >
+              Voltar ao início
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main
@@ -161,12 +232,20 @@ export function LeadsMobile() {
         {/* Stats */}
         <div className="grid grid-cols-2 gap-3">
           <div className="bg-black/30 backdrop-blur-sm border border-white/10 rounded-xl p-4">
-            <h3 className="font-onest text-2xl font-bold text-pink mb-1">+90%</h3>
-            <p className="font-manrope text-xs text-white/60">eficiência com automação</p>
+            <h3 className="font-onest text-2xl font-bold text-pink mb-1">
+              +90%
+            </h3>
+            <p className="font-manrope text-xs text-white/60">
+              eficiência com automação
+            </p>
           </div>
           <div className="bg-black/30 backdrop-blur-sm border border-white/10 rounded-xl p-4">
-            <h3 className="font-onest text-2xl font-bold text-pink mb-1">-80%</h3>
-            <p className="font-manrope text-xs text-white/60">custos operacionais</p>
+            <h3 className="font-onest text-2xl font-bold text-pink mb-1">
+              -80%
+            </h3>
+            <p className="font-manrope text-xs text-white/60">
+              custos operacionais
+            </p>
           </div>
         </div>
 
@@ -193,7 +272,9 @@ export function LeadsMobile() {
                 `}
               />
               {errors.nome && (
-                <p className="text-red-400 text-xs mt-1 font-manrope">{errors.nome}</p>
+                <p className="text-red-400 text-xs mt-1 font-manrope">
+                  {errors.nome}
+                </p>
               )}
             </div>
 
@@ -217,7 +298,9 @@ export function LeadsMobile() {
                 `}
               />
               {errors.email && (
-                <p className="text-red-400 text-xs mt-1 font-manrope">{errors.email}</p>
+                <p className="text-red-400 text-xs mt-1 font-manrope">
+                  {errors.email}
+                </p>
               )}
             </div>
 
@@ -241,7 +324,9 @@ export function LeadsMobile() {
                 `}
               />
               {errors.telefone && (
-                <p className="text-red-400 text-xs mt-1 font-manrope">{errors.telefone}</p>
+                <p className="text-red-400 text-xs mt-1 font-manrope">
+                  {errors.telefone}
+                </p>
               )}
             </div>
 
@@ -265,7 +350,9 @@ export function LeadsMobile() {
                 `}
               />
               {errors.empresa && (
-                <p className="text-red-400 text-xs mt-1 font-manrope">{errors.empresa}</p>
+                <p className="text-red-400 text-xs mt-1 font-manrope">
+                  {errors.empresa}
+                </p>
               )}
             </div>
 
@@ -324,11 +411,11 @@ export function LeadsMobile() {
               {isSubmitting ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Abrindo WhatsApp...
+                  Enviando...
                 </>
               ) : (
                 <>
-                  Enviar via WhatsApp
+                  Enviar mensagem
                   <Send className="w-4 h-4" />
                 </>
               )}

@@ -63,7 +63,9 @@ export function Dashboard() {
 
   return (
     <>
-      <h1 className="text-4xl font-bold mb-10 tracking-tight">VPS Monitor</h1>
+      <h1 className="text-4xl font-bold mb-10 tracking-tight">
+        Server Monitor
+      </h1>
 
       {/* MINI CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
