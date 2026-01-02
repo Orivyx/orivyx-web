@@ -414,7 +414,11 @@ export function LeadsDesktop() {
             </button>
 
             <p className="text-center text-white/40 font-manrope text-sm">
-              Ao enviar, você concorda com nossa política de privacidade.
+              Ao enviar, você concorda com nossa{" "}
+              <a href="/privacy" className="text-pink hover:underline">
+                Política de Privacidade
+              </a>
+              . Seus dados serão utilizados apenas para entrarmos em contato.
             </p>
           </form>
         </div>

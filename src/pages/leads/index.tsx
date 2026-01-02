@@ -7,4 +7,3 @@ export function Leads() {
 
   return isMobile ? <LeadsMobile /> : <LeadsDesktop />;
 }
-

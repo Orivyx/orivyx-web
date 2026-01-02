@@ -422,7 +422,11 @@ export function LeadsMobile() {
             </button>
 
             <p className="text-center text-white/40 font-manrope text-xs">
-              Ao enviar, você concorda com nossa política de privacidade.
+              Ao enviar, você concorda com nossa{" "}
+              <a href="/privacy" className="text-pink hover:underline">
+                Política de Privacidade
+              </a>
+              . Seus dados serão utilizados apenas para contato.
             </p>
           </form>
         </div>

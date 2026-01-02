@@ -2,7 +2,12 @@
 
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "../components/ui/card";
 import {
   ArrowLeft,
   KeyRound,
@@ -130,9 +135,17 @@ export function UserDetail() {
               const daysLeft = getDaysUntilExpiry(user.passwordExpiresAt);
               const isExpired = daysLeft <= 0;
               const isExpiringSoon = daysLeft > 0 && daysLeft <= 30;
-              
+
               return (
-                <div className={`flex items-center gap-3 ${isExpired ? 'text-red-400' : isExpiringSoon ? 'text-yellow-400' : 'text-white/70'}`}>
+                <div
+                  className={`flex items-center gap-3 ${
+                    isExpired
+                      ? "text-red-400"
+                      : isExpiringSoon
+                      ? "text-yellow-400"
+                      : "text-white/70"
+                  }`}
+                >
                   {isExpired || isExpiringSoon ? (
                     <AlertTriangle className="w-5 h-5" />
                   ) : (
@@ -140,11 +153,19 @@ export function UserDetail() {
                   )}
                   <div>
                     {isExpired ? (
-                      <span className="font-medium">Senha expirada em {user.passwordExpiresAt}</span>
+                      <span className="font-medium">
+                        Senha expirada em {user.passwordExpiresAt}
+                      </span>
                     ) : isExpiringSoon ? (
-                      <span>Senha expira em {daysLeft} dias ({user.passwordExpiresAt})</span>
+                      <span>
+                        Senha expira em {daysLeft} dias (
+                        {user.passwordExpiresAt})
+                      </span>
                     ) : (
-                      <span>Senha expira em: {user.passwordExpiresAt} ({daysLeft} dias)</span>
+                      <span>
+                        Senha expira em: {user.passwordExpiresAt} ({daysLeft}{" "}
+                        dias)
+                      </span>
                     )}
                   </div>
                 </div>
