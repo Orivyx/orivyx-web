@@ -13,7 +13,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
     >
       <Sidebar />
 
-      <main className="ml-[20%] w-[80%] p-8 font-onest">{children}</main>
+      <main className="ml-[15%] w-[85%] p-8 font-onest">{children}</main>
     </div>
   );
 }
