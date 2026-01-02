@@ -10,7 +10,8 @@ export function Privacy() {
         min-h-screen
         text-white 
         bg-no-repeat bg-cover bg-center
-        bg-[url('/bg.png')]
+        bg-[url('/bg-mobile.png')]
+        sm:bg-[url('/bg.png')]
         py-12 px-4
       "
     >
