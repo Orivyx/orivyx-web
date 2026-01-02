@@ -1,6 +1,6 @@
 import { useIsMobile } from "../landing/hooks";
-import { LeadsDesktop } from "./LeadsDesktop";
-import { LeadsMobile } from "./LeadsMobile";
+import { LeadsDesktop } from "./leadsDesktop";
+import { LeadsMobile } from "./leadsMobile";
 
 export function Leads() {
   const isMobile = useIsMobile();

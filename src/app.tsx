@@ -7,13 +7,15 @@ import Admin from "./pages/admin";
 import { AdminLeads } from "./pages/admin/leads";
 import { AdminOverlord, AdminUserDetail } from "./pages/admin/overlord/page";
 import { UsersProvider } from "./pages/admin/overlord/context";
-import { ProtectedRoute } from "./auth/ProtectedRoute";
-import { GoogleTag } from "./components/GoogleTag";
-import { CookieConsent } from "./components/CookieConsent";
+import { ProtectedRoute } from "./auth/protectedRoute";
+import { GoogleTag } from "./components/googleTag";
+import { CookieConsent } from "./components/cookieConsent";
+import { ScrollToTop } from "./components/scrollToTop";
 
 export function App() {
   return (
     <UsersProvider>
+      <ScrollToTop />
       <GoogleTag />
       <CookieConsent />
       <Routes>
