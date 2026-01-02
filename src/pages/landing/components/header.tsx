@@ -139,6 +139,16 @@ export function Header({ active }: HeaderProps) {
             </button>
           ))}
 
+          <button
+            onClick={() => {
+              setOpen(false);
+              navigate("/privacy");
+            }}
+            className="text-base text-white/80 font-light hover:text-pink text-center w-full"
+          >
+            privacidade
+          </button>
+
           {/* BOTÃO CONTATO CENTRALIZADO */}
           <button
             onClick={goToForms}

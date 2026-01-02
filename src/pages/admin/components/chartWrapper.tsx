@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
-import { PeriodSelector } from "./PeriodSelector";
+import { PeriodSelector } from "./periodSelector";
 import { Period } from "../types";
 
 const bigPink =

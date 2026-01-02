@@ -18,13 +18,15 @@ export function LandingLayout({ children }: LandingLayoutProps) {
     <main
       className="
         text-white 
-        bg-no-repeat bg-top overflow-x-hidden
+        bg-no-repeat overflow-x-hidden
 
         bg-[url('/bg-mobile.png')]
-        bg-cover
+        bg-[length:100%_auto]
+        bg-[center_top_-80px]
 
-        md:bg-[url('/bg.png')]
-        md:bg-cover
+        sm:bg-[url('/bg.png')]
+        sm:bg-cover
+        sm:bg-top
 
         2xl:bg-[url('/test.png')]
         bg-1920

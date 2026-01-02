@@ -8,7 +8,7 @@ import { AboutDesktop } from "./about/aboutDesktop";
 import { AboutMobile } from "./about/aboutMobile";
 import { ServicesDesktop } from "./services/servicesDesktop";
 import { ServicesMobile } from "./services/servicesMobile";
-import { Testimonials } from "./components/Testimonials";
+import { Testimonials } from "./components/testimonials";
 
 export function Landing() {
   const isMobile = useIsMobile();

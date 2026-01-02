@@ -12,34 +12,6 @@ export function Footer() {
 
   return (
     <>
-      {/* FOOTER MOBILE */}
-      <footer className="pt-8 pb-6 w-full px-4 flex sm:hidden flex-col items-center">
-        <div className="bg-black/50 backdrop-blur-lg w-full rounded-2xl p-6 text-center">
-          <button
-            onClick={() => navigate("/forms")}
-            className="inline-block bg-white text-pink text-sm px-6 py-3 rounded-full font-bold hover:bg-zinc-300"
-          >
-            Fale Conosco
-          </button>
-
-          <div className="font-extralight text-sm mt-4 text-white/70">
-            <p>lsanchez@orivyx.com</p>
-            <p>gmarques@orivyx.com</p>
-          </div>
-
-          <div className="flex justify-center gap-4 mt-4 text-sm font-extralight">
-            <button
-              onClick={() => navigate("/privacy")}
-              className="hover:text-zinc-300"
-            >
-              privacidade
-            </button>
-          </div>
-
-          <p className="text-white/50 text-xs mt-3">© 2026 Orivyx</p>
-        </div>
-      </footer>
-
       {/* FOOTER DESKTOP */}
       <footer
         id="footer"

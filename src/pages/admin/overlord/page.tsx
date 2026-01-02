@@ -1,6 +1,6 @@
 import { AdminLayout } from "../layout";
 import { Overlord } from "./index";
-import { UserDetail } from "./UserDetail";
+import { UserDetail } from "./userDetail";
 
 export function AdminOverlord() {
   return (
