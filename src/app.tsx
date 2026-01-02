@@ -15,6 +15,7 @@ export function App() {
       <GoogleTag />
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/ads" element={<Landing />} />
         <Route path="/forms" element={<Leads />} />
 
         <Route
