@@ -18,10 +18,10 @@ export function PeriodSelector({
   variant = "dark",
 }: PeriodSelectorProps) {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-1 lg:gap-2">
       {options.map((o) => {
         const selected = value === o.id;
-        const common = `px-4 py-1.5 rounded-full text-sm font-medium transition border`;
+        const common = `px-2 lg:px-4 py-1 lg:py-1.5 rounded-full text-xs lg:text-sm font-medium transition border`;
 
         if (variant === "white") {
           return (

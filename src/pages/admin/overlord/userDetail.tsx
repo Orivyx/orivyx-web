@@ -25,6 +25,8 @@ import {
   History,
   CheckCircle2,
   XCircle,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { useUsers, User as UserType, AuditLog } from "./context";
 
@@ -71,13 +73,14 @@ export function UserDetail() {
   const [newPassword, setNewPassword] = useState("");
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
   const [loadingLogs, setLoadingLogs] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
+  const [showActions, setShowActions] = useState(false);
 
   // Carrega usuário
   useEffect(() => {
     const loadUser = async () => {
       if (!userId) return;
 
-      // Primeiro tenta do cache
       const cachedUser = getUser(userId);
       if (cachedUser) {
         setUser(cachedUser);
@@ -85,11 +88,10 @@ export function UserDetail() {
         return;
       }
 
-      // Se não encontrou, busca da API
       try {
         const fetchedUser = await fetchUser(userId);
         setUser(fetchedUser);
-      } catch (err) {
+      } catch {
         setError("Usuário não encontrado");
       } finally {
         setLoading(false);
@@ -151,7 +153,6 @@ export function UserDetail() {
     try {
       setActionLoading(true);
       await toggleBlock(user.username);
-      // Atualiza estado local
       setUser({
         ...user,
         status: user.status === "active" ? "blocked" : "active",
@@ -205,31 +206,285 @@ export function UserDetail() {
 
   return (
     <>
-      {/* Header */}
-      <button
-        onClick={() => navigate("/admin/overlord")}
-        className="flex items-center gap-2 text-white/60 hover:text-white mb-6 transition"
-      >
-        <ArrowLeft className="w-5 h-5" />
-        Voltar para Overlord
-      </button>
+      {/* Header - Mobile friendly */}
+      <div className="flex items-center gap-4 mb-4 lg:mb-6">
+        <button
+          onClick={() => navigate("/admin/overlord")}
+          className="p-2 -ml-2 hover:bg-white/10 rounded-lg transition"
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </button>
+        <h1 className="text-lg lg:text-xl font-bold truncate flex-1">
+          {user.displayName}
+        </h1>
+        {/* Status only on desktop header */}
+        <span
+          className={`hidden lg:inline-block px-3 py-1 rounded-full text-xs font-medium ${
+            user.status === "active"
+              ? "bg-green-500/20 text-green-400"
+              : "bg-red-500/20 text-red-400"
+          }`}
+        >
+          {user.status === "active" ? "Ativo" : "Bloqueado"}
+        </span>
+      </div>
 
       {error && (
-        <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-400">
-          {error}
-          <button
-            onClick={() => setError(null)}
-            className="ml-4 underline hover:no-underline"
-          >
-            Fechar
+        <div className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-xl text-red-400 text-sm flex items-center justify-between">
+          <span>{error}</span>
+          <button onClick={() => setError(null)} className="p-1">
+            <X className="w-4 h-4" />
           </button>
         </div>
       )}
 
-      <div className="flex flex-col lg:flex-row gap-6">
+      {/* Mobile Layout */}
+      <div className="lg:hidden space-y-4">
+        {/* User Info */}
+        <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-3">
+          <div className="flex items-center gap-3">
+            <div className="w-14 h-14 bg-pink/20 rounded-full flex items-center justify-center">
+              <User className="w-7 h-7 text-pink" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="font-bold text-lg truncate">{user.displayName}</p>
+              <p className="text-white/50 text-sm">@{user.username}</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-2 pt-2 border-t border-white/10">
+            {/* Status */}
+            <div className="flex items-center gap-3 text-sm">
+              <div
+                className={`w-4 h-4 rounded-full ${
+                  user.status === "active" ? "bg-green-500" : "bg-red-500"
+                }`}
+              />
+              <span
+                className={
+                  user.status === "active" ? "text-green-400" : "text-red-400"
+                }
+              >
+                {user.status === "active" ? "Conta ativa" : "Conta bloqueada"}
+              </span>
+            </div>
+            <div className="flex items-center gap-3 text-sm">
+              <Mail className="w-4 h-4 text-white/40" />
+              <span className="text-white/70 truncate">
+                {user.email || "-"}
+              </span>
+            </div>
+            <div className="flex items-center gap-3 text-sm">
+              <Calendar className="w-4 h-4 text-white/40" />
+              <span className="text-white/70">
+                Criado: {user.createdAt || "-"}
+              </span>
+            </div>
+            <div className="flex items-center gap-3 text-sm">
+              <Clock className="w-4 h-4 text-white/40" />
+              <span className="text-white/70">
+                Expira:{" "}
+                {user.accountExpiresAt ? (
+                  <span
+                    className={
+                      new Date(user.accountExpiresAt) < new Date()
+                        ? "text-red-400"
+                        : new Date(user.accountExpiresAt) <
+                          new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+                        ? "text-yellow-400"
+                        : "text-green-400"
+                    }
+                  >
+                    {user.accountExpiresAt}
+                  </span>
+                ) : (
+                  "Nunca"
+                )}
+              </span>
+            </div>
+          </div>
+
+          {user.groups && user.groups.length > 0 && (
+            <div className="pt-2 border-t border-white/10">
+              <div className="flex items-center gap-2 text-xs text-white/50 mb-2">
+                <Shield className="w-3 h-3" />
+                Grupos
+              </div>
+              <div className="flex flex-wrap gap-1">
+                {user.groups.map((group) => (
+                  <span
+                    key={group}
+                    className="px-2 py-1 bg-purple-500/20 text-purple-400 rounded text-xs"
+                  >
+                    {group}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Audit History - Collapsible */}
+        <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+          <button
+            onClick={() => setShowHistory(!showHistory)}
+            className="w-full flex items-center justify-between p-4 text-left"
+          >
+            <div className="flex items-center gap-2">
+              <History className="w-4 h-4 text-white/40" />
+              <span className="font-medium">Histórico</span>
+              <span className="text-xs text-white/40">
+                ({auditLogs.length})
+              </span>
+            </div>
+            {showHistory ? (
+              <ChevronUp className="w-5 h-5 text-white/40" />
+            ) : (
+              <ChevronDown className="w-5 h-5 text-white/40" />
+            )}
+          </button>
+
+          {showHistory && (
+            <div className="border-t border-white/10 p-3 space-y-2 max-h-60 overflow-y-auto custom-scrollbar">
+              {loadingLogs ? (
+                <div className="flex items-center justify-center py-4 text-white/40">
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  Carregando...
+                </div>
+              ) : auditLogs.length === 0 ? (
+                <p className="text-center py-4 text-white/40 text-sm">
+                  Nenhuma ação registrada
+                </p>
+              ) : (
+                auditLogs.map((log) => (
+                  <div
+                    key={log.id}
+                    className="flex items-start gap-2 p-2 bg-white/5 rounded-lg"
+                  >
+                    {log.success ? (
+                      <CheckCircle2 className="w-4 h-4 text-green-400 mt-0.5" />
+                    ) : (
+                      <XCircle className="w-4 h-4 text-red-400 mt-0.5" />
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium">
+                        {formatAction(log.action)}
+                      </p>
+                      <p className="text-xs text-white/50">
+                        @{log.performedBy} • {log.timestamp}
+                      </p>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile FAB - Open Actions */}
+      <button
+        onClick={() => setShowActions(true)}
+        className="lg:hidden fixed bottom-6 right-6 w-14 h-14 bg-pink text-white rounded-full shadow-lg shadow-pink/30 flex items-center justify-center z-40 active:scale-95 transition"
+      >
+        <KeyRound className="w-6 h-6" />
+      </button>
+
+      {/* Mobile Actions Modal */}
+      {showActions && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+          onClick={() => setShowActions(false)}
+        >
+          <div
+            className="absolute bottom-0 left-0 right-0 bg-[#1a1a2e] border-t border-white/20 rounded-t-2xl p-4 pt-2"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Handle bar */}
+            <div className="w-12 h-1 bg-white/20 rounded-full mx-auto mb-4" />
+
+            <h3 className="text-lg font-bold mb-4 text-center">Ações</h3>
+
+            <div className="space-y-2">
+              <button
+                onClick={() => {
+                  setShowActions(false);
+                  setModal("password");
+                }}
+                disabled={actionLoading}
+                className="w-full flex items-center gap-3 px-4 py-3 bg-yellow-500/10 border border-yellow-500/30 rounded-xl text-yellow-400 active:bg-yellow-500/20 disabled:opacity-50"
+              >
+                <KeyRound className="w-5 h-5" />
+                Alterar Senha
+              </button>
+
+              <button
+                onClick={() => {
+                  setShowActions(false);
+                  setModal("renew");
+                }}
+                disabled={actionLoading}
+                className="w-full flex items-center gap-3 px-4 py-3 bg-blue-500/10 border border-blue-500/30 rounded-xl text-blue-400 active:bg-blue-500/20 disabled:opacity-50"
+              >
+                <RefreshCw className="w-5 h-5" />
+                Renovar Expiração
+              </button>
+
+              <button
+                onClick={() => {
+                  setShowActions(false);
+                  handleToggleBlock();
+                }}
+                disabled={actionLoading}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl active:opacity-80 disabled:opacity-50 ${
+                  user.status === "active"
+                    ? "bg-orange-500/10 border border-orange-500/30 text-orange-400"
+                    : "bg-green-500/10 border border-green-500/30 text-green-400"
+                }`}
+              >
+                {actionLoading ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : user.status === "active" ? (
+                  <>
+                    <Lock className="w-5 h-5" />
+                    Bloquear Usuário
+                  </>
+                ) : (
+                  <>
+                    <Unlock className="w-5 h-5" />
+                    Desbloquear Usuário
+                  </>
+                )}
+              </button>
+
+              <button
+                onClick={() => {
+                  setShowActions(false);
+                  setModal("delete");
+                }}
+                disabled={actionLoading}
+                className="w-full flex items-center gap-3 px-4 py-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 active:bg-red-500/20 disabled:opacity-50"
+              >
+                <Trash2 className="w-5 h-5" />
+                Excluir Usuário
+              </button>
+            </div>
+
+            <button
+              onClick={() => setShowActions(false)}
+              className="w-full mt-4 py-3 border border-white/20 rounded-xl text-white/60 active:bg-white/5"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Desktop Layout */}
+      <div className="hidden lg:flex flex-col lg:flex-row gap-6">
         {/* User Info Card */}
         <Card className="bg-white/5 border-white/20 text-white flex-1">
-          <CardHeader>
+          <CardHeader className="p-6">
             <div className="flex items-center justify-between">
               <CardTitle className="text-2xl font-onest flex items-center gap-3">
                 <div className="w-14 h-14 bg-pink/20 rounded-full flex items-center justify-center">
@@ -253,7 +508,7 @@ export function UserDetail() {
               </span>
             </div>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 p-6 pt-0">
             <div className="flex items-center gap-3 text-white/70">
               <Mail className="w-5 h-5 text-white/40" />
               {user.email || "-"}
@@ -301,11 +556,11 @@ export function UserDetail() {
         </Card>
 
         {/* Actions Card */}
-        <Card className="bg-white/5 border-white/20 text-white w-full lg:w-80">
-          <CardHeader>
+        <Card className="bg-white/5 border-white/20 text-white w-80">
+          <CardHeader className="p-6">
             <CardTitle className="text-xl font-onest">Ações</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-3 p-6 pt-0">
             <button
               onClick={() => setModal("password")}
               disabled={actionLoading}
@@ -360,15 +615,15 @@ export function UserDetail() {
         </Card>
       </div>
 
-      {/* Audit Logs Section */}
-      <Card className="bg-white/5 border-white/20 text-white mt-6">
-        <CardHeader>
+      {/* Desktop Audit Logs */}
+      <Card className="hidden lg:block bg-white/5 border-white/20 text-white mt-6">
+        <CardHeader className="p-6">
           <CardTitle className="text-xl font-onest flex items-center gap-2">
             <History className="w-5 h-5" />
             Histórico de Ações
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6 pt-0">
           {loadingLogs ? (
             <div className="flex items-center justify-center py-8 text-white/40">
               <Loader2 className="w-5 h-5 animate-spin mr-2" />
@@ -423,18 +678,21 @@ export function UserDetail() {
       {/* Modal Overlay */}
       {modal && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end lg:items-center justify-center z-50"
           onClick={() => !actionLoading && setModal(null)}
         >
           <div
-            className="bg-[#1a1a2e] border border-white/20 rounded-2xl p-6 w-full max-w-md mx-4"
+            className="bg-[#1a1a2e] border border-white/20 rounded-t-2xl lg:rounded-2xl p-4 lg:p-6 w-full lg:max-w-md max-h-[80vh] overflow-y-auto custom-scrollbar"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Handle bar for mobile */}
+            <div className="lg:hidden w-12 h-1 bg-white/20 rounded-full mx-auto mb-4" />
+
             {/* Delete Modal */}
             {modal === "delete" && (
               <>
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-bold text-red-400">
+                <div className="flex justify-between items-center mb-4 lg:mb-6">
+                  <h2 className="text-lg lg:text-xl font-bold text-red-400">
                     Excluir Usuário
                   </h2>
                   <button
@@ -446,8 +704,8 @@ export function UserDetail() {
                   </button>
                 </div>
 
-                <p className="text-white/70 mb-6">
-                  Tem certeza que deseja excluir o usuário{" "}
+                <p className="text-white/70 mb-6 text-sm lg:text-base">
+                  Tem certeza que deseja excluir{" "}
                   <span className="text-white font-medium">
                     @{user.username}
                   </span>
@@ -479,8 +737,8 @@ export function UserDetail() {
             {/* Password Modal */}
             {modal === "password" && (
               <>
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-bold text-yellow-400">
+                <div className="flex justify-between items-center mb-4 lg:mb-6">
+                  <h2 className="text-lg lg:text-xl font-bold text-yellow-400">
                     Alterar Senha
                   </h2>
                   <button
@@ -495,8 +753,8 @@ export function UserDetail() {
                   </button>
                 </div>
 
-                <p className="text-white/70 mb-4">
-                  Digite a nova senha para o usuário{" "}
+                <p className="text-white/70 mb-4 text-sm lg:text-base">
+                  Nova senha para{" "}
                   <span className="text-white font-medium">
                     @{user.username}
                   </span>
@@ -512,8 +770,8 @@ export function UserDetail() {
                     className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-yellow-500 disabled:opacity-50"
                   />
                   <p className="text-xs text-white/40 mt-2">
-                    Mínimo 12 caracteres, incluindo maiúsculas, minúsculas,
-                    números e símbolos
+                    Mínimo 12 caracteres com maiúsculas, minúsculas, números e
+                    símbolos
                   </p>
                 </div>
 
@@ -536,7 +794,7 @@ export function UserDetail() {
                     {actionLoading && (
                       <Loader2 className="w-4 h-4 animate-spin" />
                     )}
-                    {actionLoading ? "Alterando..." : "Alterar Senha"}
+                    {actionLoading ? "Alterando..." : "Alterar"}
                   </button>
                 </div>
               </>
@@ -545,8 +803,8 @@ export function UserDetail() {
             {/* Renew Expiration Modal */}
             {modal === "renew" && (
               <>
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-bold text-blue-400">
+                <div className="flex justify-between items-center mb-4 lg:mb-6">
+                  <h2 className="text-lg lg:text-xl font-bold text-blue-400">
                     Renovar Conta
                   </h2>
                   <button
@@ -558,8 +816,8 @@ export function UserDetail() {
                   </button>
                 </div>
 
-                <p className="text-white/70 mb-6">
-                  Deseja estender a expiração da conta do usuário{" "}
+                <p className="text-white/70 mb-6 text-sm lg:text-base">
+                  Estender a conta de{" "}
                   <span className="text-white font-medium">
                     @{user.username}
                   </span>{" "}

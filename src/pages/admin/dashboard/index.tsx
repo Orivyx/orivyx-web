@@ -63,12 +63,12 @@ export function Dashboard() {
 
   return (
     <>
-      <h1 className="text-4xl font-bold mb-10 tracking-tight">
+      <h1 className="text-2xl lg:text-4xl font-bold mb-6 lg:mb-10 tracking-tight">
         Server Monitor
       </h1>
 
       {/* MINI CARDS */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-6">
         <MiniCard
           title="CPU"
           value={`${realtime.cpu}%`}
@@ -111,7 +111,7 @@ export function Dashboard() {
       </div>
 
       {/* BIG CHARTS */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10 mt-6 lg:mt-10">
         {/* CPU */}
         <ChartWrapper
           title="CPU Usage"

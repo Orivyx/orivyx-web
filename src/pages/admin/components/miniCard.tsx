@@ -26,20 +26,22 @@ export function MiniCard({
 }: MiniCardProps) {
   return (
     <Card
-      className={`${miniStyles[variant]} rounded-2xl backdrop-blur-lg transition-transform duration-300 hover:scale-105`}
+      className={`${miniStyles[variant]} rounded-xl lg:rounded-2xl backdrop-blur-lg transition-transform duration-300 hover:scale-105`}
     >
-      <CardHeader className="pb-1">
-        <CardTitle className="text-base font-onest tracking-tight">
+      <CardHeader className="pb-1 p-3 lg:p-6 lg:pb-1">
+        <CardTitle className="text-xs lg:text-base font-onest tracking-tight">
           {title}
         </CardTitle>
       </CardHeader>
 
-      <CardContent>
-        <div className="text-3xl font-bold mb-2" style={{ color: accent }}>
+      <CardContent className="p-3 lg:p-6 pt-0 lg:pt-0">
+        <div className="text-xl lg:text-3xl font-bold mb-1 lg:mb-2" style={{ color: accent }}>
           {value}
         </div>
 
-        <MiniSparkline data={chartData} color={accent} />
+        <div className="hidden sm:block">
+          <MiniSparkline data={chartData} color={accent} />
+        </div>
       </CardContent>
     </Card>
   );
