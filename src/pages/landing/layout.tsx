@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Header, Contact, Footer } from "./components";
-import { useSectionObserver } from "./hooks";
+import { useSectionObserver, useSecretAccess } from "./hooks";
 
 type LandingLayoutProps = {
   children: ReactNode;
@@ -13,6 +13,9 @@ export function LandingLayout({ children }: LandingLayoutProps) {
     "services",
     "footer",
   ]);
+
+  // Easter egg: type "orivyx" or use Konami Code to access /admin
+  useSecretAccess();
 
   return (
     <main
