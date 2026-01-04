@@ -13,7 +13,10 @@ export function AdminLayout({ children }: AdminLayoutProps) {
     >
       <Sidebar />
 
-      <main className="ml-[15%] w-[85%] p-8 font-onest">{children}</main>
+      {/* Main content - responsive margins */}
+      <main className="w-full lg:ml-[15%] lg:w-[85%] p-4 lg:p-8 font-onest pt-20 lg:pt-8">
+        {children}
+      </main>
     </div>
   );
 }

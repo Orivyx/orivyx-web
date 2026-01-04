@@ -111,8 +111,10 @@ export function Overlord() {
 
   return (
     <>
-      <h1 className="text-4xl font-bold mb-6 tracking-tight">Overlord</h1>
-      <p className="text-white/60 mb-8">
+      <h1 className="text-2xl lg:text-4xl font-bold mb-2 lg:mb-6 tracking-tight">
+        Overlord
+      </h1>
+      <p className="text-white/60 mb-6 lg:mb-8 text-sm lg:text-base">
         Gestão de usuários do Active Directory
       </p>
 
@@ -129,12 +131,12 @@ export function Overlord() {
       )}
 
       {/* Actions Bar */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-8">
+      <div className="flex gap-2 lg:gap-4 mb-6 lg:mb-8">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
           <input
             type="text"
-            placeholder="Buscar usuário..."
+            placeholder="Buscar..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-pink"
@@ -142,28 +144,39 @@ export function Overlord() {
         </div>
         <button
           onClick={refreshUsers}
-          className="flex items-center gap-2 px-4 py-3 bg-white/10 text-white rounded-xl font-medium hover:bg-white/20 transition"
+          className="p-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition"
+          title="Atualizar"
         >
           <RefreshCw className="w-5 h-5" />
         </button>
+        {/* Desktop only button */}
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 px-6 py-3 bg-pink text-white rounded-xl font-medium hover:bg-pink/80 transition"
+          className="hidden lg:flex items-center gap-2 px-6 py-3 bg-pink text-white rounded-xl font-medium hover:bg-pink/80 transition"
         >
           <UserPlus className="w-5 h-5" />
           Novo Usuário
         </button>
       </div>
 
-      {/* Users Table */}
+      {/* Mobile FAB */}
+      <button
+        onClick={() => setShowCreateModal(true)}
+        className="lg:hidden fixed bottom-6 right-6 w-14 h-14 bg-pink text-white rounded-full shadow-lg shadow-pink/30 flex items-center justify-center z-40 active:scale-95 transition"
+      >
+        <UserPlus className="w-6 h-6" />
+      </button>
+
+      {/* Users List */}
       <Card className="bg-white/5 border-white/20 text-white">
         <CardHeader>
-          <CardTitle className="text-xl font-onest">
+          <CardTitle className="text-lg lg:text-xl font-onest">
             Usuários ({users.length})
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="overflow-x-auto">
+          {/* Desktop Table */}
+          <div className="hidden lg:block overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/10 text-left text-white/60 text-sm">
@@ -216,24 +229,55 @@ export function Overlord() {
                 ))}
               </tbody>
             </table>
-
-            {filteredUsers.length === 0 && (
-              <div className="text-center py-12 text-white/40">
-                Nenhum usuário encontrado
-              </div>
-            )}
           </div>
+
+          {/* Mobile Cards */}
+          <div className="lg:hidden space-y-2">
+            {filteredUsers.map((user) => (
+              <button
+                key={user.username}
+                onClick={() => handleUserClick(user.username)}
+                className="w-full text-left p-4 bg-white/5 rounded-xl border border-white/10 active:bg-white/10 transition flex items-center gap-3"
+              >
+                {/* Avatar */}
+                <div
+                  className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${
+                    user.status === "active"
+                      ? "bg-green-500/20 text-green-400"
+                      : "bg-red-500/20 text-red-400"
+                  }`}
+                >
+                  {user.displayName?.charAt(0)?.toUpperCase() || "?"}
+                </div>
+                {/* Info */}
+                <div className="min-w-0 flex-1">
+                  <div className="font-medium truncate">{user.displayName}</div>
+                  <div className="text-sm text-white/50 truncate">
+                    @{user.username}
+                  </div>
+                </div>
+                {/* Arrow */}
+                <ChevronRight className="w-5 h-5 text-white/30 flex-shrink-0" />
+              </button>
+            ))}
+          </div>
+
+          {filteredUsers.length === 0 && (
+            <div className="text-center py-12 text-white/40">
+              Nenhum usuário encontrado
+            </div>
+          )}
         </CardContent>
       </Card>
 
       {/* Create User Modal */}
       {showCreateModal && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
           onClick={() => !creating && setShowCreateModal(false)}
         >
           <div
-            className="bg-[#1a1a2e] border border-white/20 rounded-2xl p-6 w-full max-w-md mx-4"
+            className="bg-[#1a1a2e] border border-white/20 rounded-2xl p-4 lg:p-6 w-full max-w-md max-h-[90vh] overflow-y-auto custom-scrollbar"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-6">
